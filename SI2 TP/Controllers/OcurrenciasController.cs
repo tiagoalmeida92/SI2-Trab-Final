@@ -7,12 +7,18 @@ namespace SI2_TP.Controllers
     {
         //
         // GET: /Ocurrencias/
-        private readonly OcorrenciasDao _dao = new OcorrenciasDao();
+        private readonly OcorrenciaDao _dao = new OcorrenciaDao();
 
         public ActionResult Index(int idFuncio)
         {
 
             return View(_dao.GetAll(idFuncio));
+        }
+
+        public ActionResult Details(int idOcorrencia)
+        {
+            var ocorrencia = _dao.GetById(idOcorrencia);
+            return View(ocorrencia);
         }
 
     }

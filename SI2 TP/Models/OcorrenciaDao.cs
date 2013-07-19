@@ -8,11 +8,11 @@ using System.Web;
 
 namespace SI2_TP.Models
 {
-    public class OcorrenciasDao
+    public class OcorrenciaDao
     {
-        public IEnumerable<Ocorrencias> GetAll(int idFunc)
+        public IEnumerable<Ocorrencia> GetAll(int idFunc)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using(var con = new SqlConnection(conString))
             using(var cmd = new SqlCommand("GetOcurrenciasFromFunc",con))
@@ -27,7 +27,7 @@ namespace SI2_TP.Models
                 {
                     DateTime t1 = Convert.ToDateTime(row["dataHoraEnt"].ToString());
                     DateTime t2 = Convert.ToDateTime(row["dataHoraAct"].ToString());
-                    list.AddLast(new Ocorrencias
+                    list.AddLast(new Ocorrencia
                             {
                                 id = Convert.ToInt32(row["id"]),
                                 dataHoraEnt = t1,
@@ -36,16 +36,16 @@ namespace SI2_TP.Models
                                 estado = (Estado)Convert.ToInt32(row["estado"]),
                                 secInst = Convert.ToInt32(row["secInst"]),
                                 secPiso = Convert.ToInt32(row["secPiso"]),
-                                secZona = Convert.ToInt32(row["secZona"])
+                                secZona = Convert.ToString(row["secZona"])
                             });
                 }
             }
             return list;
         }
 
-        public void updateResolucaoOcorrencia(int id)
+        public void UpdateResolucaoOcorrencia(int id)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("GetOcurrenciasFromFunc", con))
@@ -53,6 +53,42 @@ namespace SI2_TP.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public Ocorrencia GetById(int idOcorrencia)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+
+            OcorrenciaDataSet ds = new OcorrenciaDataSet();
+            var rows = ds.Ocorrencia.Where(row => row.id == idOcorrencia);
+            return rows.Count() == 1 ? CreateOcorrencia(rows.First()) : null;
+
+
+            //using (var con = new SqlConnection(conString))
+            //using (var cmd = new SqlCommand("GetOcorrenciaById", con))
+            //{
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+            //    var adapter = new SqlDataAdapter {SelectCommand = cmd};
+            //    var ds = new DataSet();
+            //    adapter.Fill(ds);
+            //    return ds.Tables[0].Rows.Count == 1 ? CreateOcorrencia(ds.Tables[0].Rows[0]) : null;
+            //}
+        }
+
+        private static Ocorrencia CreateOcorrencia(OcorrenciaDataSet.OcorrenciaRow dataRow)
+        {
+            return new Ocorrencia
+                       {
+                           id = dataRow.id,
+                           dataHoraAct = dataRow.dataHoraAct,
+                           dataHoraEnt = dataRow.dataHoraEnt,
+                           estado = (Estado)dataRow.estado,
+                           tipo = (Tipo)dataRow.tipo,
+                           secInst = dataRow.secInst,
+                           secPiso = dataRow.secPiso,
+                           secZona = dataRow.secZona
+                       };
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SI2_TP.Models
 {
-    public class Ocorrencias
+    public class Ocorrencia
     {
         public int id { get; set; }
         public DateTime dataHoraEnt { get; set; }
@@ -14,7 +14,7 @@ namespace SI2_TP.Models
         public Tipo tipo { get; set; }
         public int secInst { get; set; }
         public int secPiso { get; set; }
-        public int secZona { get; set; }
+        public string secZona { get; set; }
 
     }
 }

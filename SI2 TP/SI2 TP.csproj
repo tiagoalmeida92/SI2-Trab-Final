@@ -99,7 +99,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OcurrenciasController.cs" />
-    <Compile Include="DAL\DataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -107,8 +106,13 @@
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\FuncionarioDAO.cs" />
-    <Compile Include="Models\Ocorrencias.cs" />
-    <Compile Include="Models\OcorrenciasDao.cs" />
+    <Compile Include="Models\Ocorrencia.cs" />
+    <Compile Include="Models\OcorrenciaDao.cs" />
+    <Compile Include="Models\OcorrenciaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tipo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -143,6 +147,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Ocorrencias\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\OcorrenciaDataSet.xsc">
+      <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Models\OcorrenciaDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OcorrenciaDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Models\OcorrenciaDataSet.xss">
+      <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
