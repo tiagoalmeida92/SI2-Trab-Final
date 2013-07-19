@@ -163,6 +163,7 @@
     <Content Include="Views\Ocorrencias\Details.cshtml" />
     <Content Include="Views\Ocorrencias\Create.cshtml" />
     <Content Include="Views\Ocorrencias\Edit.cshtml" />
+    <Content Include="Views\Ocorrencias\NonConcluded.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

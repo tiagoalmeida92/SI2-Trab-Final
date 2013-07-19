@@ -54,8 +54,15 @@ namespace SI2_TP.Controllers
         [HttpPost]
         public ActionResult Edit(Ocorrencia ocorrencia)
         {
-            _dao.Update(ocorrencia);
+            //_dao.Update(ocorrencia);
             return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult NonConcluded(DateTime? date)
+        {
+            if(!date.HasValue) return View();
+            var ocorrencias = _dao.GetAllNaoConcluidas(date.Value);
+            return View("Index", ocorrencias);
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿        
+
+@{
+    ViewBag.Title = "Nao concluidas";
+}
+
+<h2>Ocorrencias não concluidas</h2>
+
+
+@using(Html.BeginForm("NonConcluded","Ocorrencias",FormMethod.Get))
+{
+    <p>Data de partida dd-MM-yyyy</p>
+    <input type="date" name="date"/>
+}

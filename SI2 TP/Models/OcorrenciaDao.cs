@@ -11,9 +11,9 @@ namespace SI2_TP.Models
     public class OcorrenciaDao
     {
 
-        public IEnumerable<Ocorrencias> GetAll(int idFunc)
+        public IEnumerable<Ocorrencia> GetAll(int idFunc)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using(var con = new SqlConnection(conString))
             using(var cmd = new SqlCommand("GetOcurrenciasFromFunc",con))
@@ -27,23 +27,69 @@ namespace SI2_TP.Models
                 DataRowCollection drc = ds.Tables[0].Rows;
                 foreach (DataRow row in drc)
                 {
-                    list.AddLast(new Ocorrencias(Convert.ToInt32(row["id"]), Convert.ToDateTime(row["dataHoraAct"]),
-                                                 Convert.ToDateTime(row["dataHoraEnt"]),
-                                                 (Estado) Convert.ToInt32(row["estado"]),
-                                                 (Tipo) Convert.ToInt32(row["tipo"]), Convert.ToInt32(row["secInst"]),
-                                                 Convert.ToInt32(row["secPiso"])
-                                                 , Convert.ToString(row["secZona"])));
+                    list.AddLast(ConvertOcorrencia(row));
                 }
             }
             return list;
         }
 
+        public IEnumerable<Ocorrencia> GetAll()
+        {
+            var list = new LinkedList<Ocorrencia>();
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using(var con = new SqlConnection(conString))
+            using(var cmd = new SqlCommand("SELECT * FROM Ocorrencia",con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
+                var ds = new DataSet();
+                adapter.Fill(ds);
+                DataRowCollection drc = ds.Tables[0].Rows;
+                foreach (DataRow row in drc)
+                {
+                    list.AddLast(ConvertOcorrencia(row));
+                }
+            }
+            return list;
+        }
+
+
+        public Ocorrencia GetById(int idOcorrencia)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("GetOcorrenciaById", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
+                var ds = new DataSet();
+                adapter.Fill(ds);
+                return ds.Tables[0].Rows.Count == 1 ? ConvertOcorrencia(ds.Tables[0].Rows[0]) : null;
+            }
+        }
+
+        private static Ocorrencia ConvertOcorrencia(DataRow row)
+        {
+            return new Ocorrencia
+                       {
+                           id = Convert.ToInt32(row["id"]),
+                           dataHoraEnt = Convert.ToDateTime(row["dataHoraEnt"]),
+                           dataHoraAct = Convert.ToDateTime(row["dataHoraAct"]),
+                           tipo = (Tipo) Convert.ToInt32(row["tipo"]),
+                           estado = (Estado) Convert.ToInt32(row["estado"]),
+                           secInst = Convert.ToInt32(row["secInst"]),
+                           secPiso = Convert.ToInt32(row["secPiso"]),
+                           secZona = Convert.ToString(row["secZona"])
+                       };
+        }
+
         //b. Permitir registar e modificar toda a informação relacionada com uma ocorrência, incluindo mudanças de estado e 
         //respectiva gestão dos trabalhos nas áreas de intervenção afectas.
 
-        public void Insert(Ocorrencias ocorr)
+        public void Insert(Ocorrencia ocorr)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("reportaOcorrencia", con))
@@ -61,7 +107,7 @@ namespace SI2_TP.Models
 
         public void Cancelar(int idOcorrencia)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("CancelarOcurrencia", con))
@@ -75,7 +121,7 @@ namespace SI2_TP.Models
 
         public void SetEmResolucao(int idOcorr)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("iniciaResolucaoOcorrencia", con))
@@ -90,9 +136,9 @@ namespace SI2_TP.Models
         //d.  Permitir listar todas as ocorrências ainda não concluídas (que estejam em estado inicial ou em resolução) que 
         //tenham dado entrada depois de uma determinada data. 
 
-        public IEnumerable<Ocorrencias> GetAllNaoConcluidas(DateTime data)
+        public IEnumerable<Ocorrencia> GetAllNaoConcluidas(DateTime data)
         {
-            var list = new LinkedList<Ocorrencias>();
+            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("GetOcurrenciasNaoConcluidas", con))
@@ -106,12 +152,7 @@ namespace SI2_TP.Models
                 DataRowCollection drc = ds.Tables[0].Rows;
                 foreach (DataRow row in drc)
                 {
-                    list.AddLast(new Ocorrencias(Convert.ToInt32(row["id"]), Convert.ToDateTime(row["dataHoraAct"]),
-                                                 Convert.ToDateTime(row["dataHoraEnt"]),
-                                                 (Estado)Convert.ToInt32(row["estado"]),
-                                                 (Tipo)Convert.ToInt32(row["tipo"]), Convert.ToInt32(row["secInst"]),
-                                                 Convert.ToInt32(row["secPiso"])
-                                                 , Convert.ToString(row["secZona"])));
+                    list.AddLast(ConvertOcorrencia(row));
                 }
             }
             return list;
