@@ -14,7 +14,19 @@ namespace SI2_TP.Models
         public Tipo tipo { get; set; }
         public int secInst { get; set; }
         public int secPiso { get; set; }
-        public int secZona { get; set; }
+        public string secZona { get; set; }
+
+        public Ocorrencias(int id,DateTime ent,DateTime act,Estado estado,Tipo tipo,int secInst,int secPiso,string secZona)
+        {
+            this.id = id;
+            dataHoraAct = act;
+            dataHoraEnt = ent;
+            this.estado = estado;
+            this.tipo = tipo;
+            this.secInst = secInst;
+            this.secPiso = secPiso;
+            this.secZona = secZona;
+        }
 
     }
 }

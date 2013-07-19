@@ -25,19 +25,12 @@ namespace SI2_TP.Models
                 DataRowCollection drc = ds.Tables[0].Rows;
                 foreach (DataRow row in drc)
                 {
-                    DateTime t1 = Convert.ToDateTime(row["dataHoraEnt"].ToString());
-                    DateTime t2 = Convert.ToDateTime(row["dataHoraAct"].ToString());
-                    list.AddLast(new Ocorrencias
-                            {
-                                id = Convert.ToInt32(row["id"]),
-                                dataHoraEnt = t1,
-                                dataHoraAct =t2 ,
-                                tipo = (Tipo)Convert.ToInt32(row["tipo"]),
-                                estado = (Estado)Convert.ToInt32(row["estado"]),
-                                secInst = Convert.ToInt32(row["secInst"]),
-                                secPiso = Convert.ToInt32(row["secPiso"]),
-                                secZona = Convert.ToInt32(row["secZona"])
-                            });
+                    list.AddLast(new Ocorrencias(Convert.ToInt32(row["id"]), Convert.ToDateTime(row["dataHoraAct"]),
+                                                 Convert.ToDateTime(row["dataHoraEnt"]),
+                                                 (Estado) Convert.ToInt32(row["estado"]),
+                                                 (Tipo) Convert.ToInt32(row["tipo"]), Convert.ToInt32(row["secInst"]),
+                                                 Convert.ToInt32(row["secPiso"])
+                                                 , Convert.ToString(row["secZona"])));
                 }
             }
             return list;
