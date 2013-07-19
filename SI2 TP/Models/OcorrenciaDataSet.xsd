@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="Ocorrencias" targetNamespace="http://tempuri.org/Ocorrencias.xsd" xmlns:mstns="http://tempuri.org/Ocorrencias.xsd" xmlns="http://tempuri.org/Ocorrencias.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="OcorrenciaDataSet" targetNamespace="http://tempuri.org/OcorrenciaDataSet.xsd" xmlns:mstns="http://tempuri.org/OcorrenciaDataSet.xsd" xmlns="http://tempuri.org/OcorrenciaDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -74,7 +74,7 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="Ocorrencias" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Ocorrencias" msprop:Generator_UserDSName="Ocorrencias">
+  <xs:element name="OcorrenciaDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="OcorrenciaDataSet" msprop:Generator_UserDSName="OcorrenciaDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="Ocorrencia" msprop:Generator_TableClassName="OcorrenciaDataTable" msprop:Generator_TableVarName="tableOcorrencia" msprop:Generator_TablePropName="Ocorrencia" msprop:Generator_RowDeletingName="OcorrenciaRowDeleting" msprop:Generator_RowChangingName="OcorrenciaRowChanging" msprop:Generator_RowEvHandlerName="OcorrenciaRowChangeEventHandler" msprop:Generator_RowDeletedName="OcorrenciaRowDeleted" msprop:Generator_UserTableName="Ocorrencia" msprop:Generator_RowChangedName="OcorrenciaRowChanged" msprop:Generator_RowEvArgName="OcorrenciaRowChangeEvent" msprop:Generator_RowClassName="OcorrenciaRow">

@@ -16,7 +16,12 @@ namespace SI2_TP.Models
         public int secPiso { get; set; }
         public string secZona { get; set; }
 
-        public Ocorrencias(int id,DateTime ent,DateTime act,Estado estado,Tipo tipo,int secInst,int secPiso,string secZona)
+        public Ocorrencia()
+        {
+            
+        }
+
+        public Ocorrencia(int id,DateTime ent,DateTime act,Estado estado,Tipo tipo,int secInst,int secPiso,string secZona)
         {
             this.id = id;
             dataHoraAct = act;

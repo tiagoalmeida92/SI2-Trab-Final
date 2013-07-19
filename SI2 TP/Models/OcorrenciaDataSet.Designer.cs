@@ -20,7 +20,7 @@ namespace SI2_TP.Models {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("Ocorrencias")]
+    [global::System.Xml.Serialization.XmlRootAttribute("OcorrenciaDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class OcorrenciaDataSet : global::System.Data.DataSet {
         
@@ -199,9 +199,9 @@ namespace SI2_TP.Models {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "Ocorrencias";
+            this.DataSetName = "OcorrenciaDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/Ocorrencias.xsd";
+            this.Namespace = "http://tempuri.org/OcorrenciaDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableOcorrencia = new OcorrenciaDataTable();
@@ -774,7 +774,7 @@ namespace SI2_TP.Models {
         }
     }
 }
-namespace SI2_TP.Models.OcorrenciasTableAdapters {
+namespace SI2_TP.Models.OcorrenciaDataSetTableAdapters {
     
     
     /// <summary>

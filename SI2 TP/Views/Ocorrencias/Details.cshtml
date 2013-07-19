@@ -1,0 +1,44 @@
+﻿@model SI2_TP.Models.Ocorrencia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Ocorrencia</legend>
+    
+        <div class="display-label">ID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.id)
+    </div>
+
+    <div class="display-label">dataHoraEnt</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataHoraEnt)
+    </div>
+
+    <div class="display-label">dataHoraAct</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataHoraAct)
+    </div>
+
+    <div class="display-label">secInst</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.secInst)
+    </div>
+
+    <div class="display-label">secPiso</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.secPiso)
+    </div>
+
+    <div class="display-label">secZona</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.secZona)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index","Home")
+</p>

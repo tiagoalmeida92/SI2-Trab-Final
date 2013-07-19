@@ -160,6 +160,7 @@
     <Content Include="Models\OcorrenciaDataSet.xss">
       <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Ocorrencias\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
