@@ -72,5 +72,34 @@ namespace SI2_TP.Models
                            secZona = Convert.ToString(row["secZona"])
                        };
         }
+
+        public void Insert(Ocorrencia ocorrencia)
+        {
+                
+        }
+
+        public IEnumerable<Ocorrencia> GetAll()
+        {
+            var list = new LinkedList<Ocorrencia>();
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using(var con = new SqlConnection(conString))
+            using(var cmd = new SqlCommand("SELECT * FROM Ocorrencia",con))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter {SelectCommand = cmd};
+                var ds = new DataSet();
+                adapter.Fill(ds);
+                DataRowCollection drc = ds.Tables[0].Rows;
+                foreach (DataRow row in drc)
+                {
+                    list.AddLast(CreateOcorrencia(row));
+                }
+            }
+            return list;
+        }
+
+        public void Update(Ocorrencia ocorrencia)
+        {
+                
+        }
     }
 }

@@ -1,0 +1,53 @@
+﻿@using SI2_TP.Models
+@model SI2_TP.Models.Ocorrencia
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Ocorrencia</legend>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.secInst)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.secInst)
+            @Html.ValidationMessageFor(model => model.secInst)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.secPiso)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.secPiso)
+            @Html.ValidationMessageFor(model => model.secPiso)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.secZona)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.secZona)
+            @Html.ValidationMessageFor(model => model.secZona)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tipo)
+        </div>
+        @Html.DropDownListFor(x => x.estado, new SelectList(Enum.GetValues(typeof(Tipo))))
+        
+        
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

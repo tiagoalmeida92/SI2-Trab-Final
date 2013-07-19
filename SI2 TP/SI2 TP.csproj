@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyExtensions.cs" />
     <Compile Include="Controllers\OcurrenciasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,6 +162,8 @@
       <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Ocorrencias\Details.cshtml" />
+    <Content Include="Views\Ocorrencias\Create.cshtml" />
+    <Content Include="Views\Ocorrencias\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

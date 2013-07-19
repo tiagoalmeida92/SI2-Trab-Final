@@ -3,6 +3,17 @@
     ViewBag.Title = "Funcionario";
 }
 
+<h2>Operações</h2>
+
+<ul>
+    <li>@Html.ActionLink("Ocorrencias", "Index", "Ocorrencias", new { idFuncio=@Model.Num }, null)</li>
+    @if(Model.Admin)
+    {
+        <li>@Html.ActionLink("Registar Ocorrencia", "Create", "Ocorrencias")</li>
+    }
+    <li></li>
+</ul>
+
 <fieldset>
     <legend>Funcionario @Model.Num</legend>
     
@@ -34,10 +45,3 @@
 
 </fieldset>
 
-<h2>Operações</h2>
-
-<ul>
-    <li>@Html.ActionLink("Ocorrencias", "Index", "Ocorrencias", new { idFuncio=@Model.Num }, null)</li>
-    <li></li>
-    <li></li>
-</ul>

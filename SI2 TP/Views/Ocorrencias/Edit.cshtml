@@ -1,0 +1,30 @@
+﻿@using SI2_TP.Models
+@model SI2_TP.Models.Ocorrencia
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Ocorrencia</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.estado)
+        </div>
+        @Html.DropDownListFor(x => x.estado, new SelectList(Enum.GetValues(typeof(Estado))))
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
