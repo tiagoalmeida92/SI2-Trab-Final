@@ -10,6 +10,7 @@ namespace SI2_TP.Models
 {
     public class OcorrenciasDao
     {
+
         public IEnumerable<Ocorrencias> GetAll(int idFunc)
         {
             var list = new LinkedList<Ocorrencias>();
@@ -19,9 +20,10 @@ namespace SI2_TP.Models
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idFunc", idFunc);
-                SqlDataAdapter adapter = new SqlDataAdapter {SelectCommand = cmd};
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
                 var ds = new DataSet();
                 adapter.Fill(ds);
+                con.Close();
                 DataRowCollection drc = ds.Tables[0].Rows;
                 foreach (DataRow row in drc)
                 {
@@ -36,12 +38,12 @@ namespace SI2_TP.Models
             return list;
         }
 
-        public void updateResolucaoOcorrencia(int id)
+        public void Insert(int id)
         {
             var list = new LinkedList<Ocorrencias>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
-            using (var cmd = new SqlCommand("GetOcurrenciasFromFunc", con))
+            using (var cmd = new SqlCommand("reportaOcorrencia", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
