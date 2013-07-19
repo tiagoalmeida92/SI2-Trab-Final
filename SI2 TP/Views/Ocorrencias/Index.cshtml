@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SI2_TP.Models.Ocorrencias>
+﻿@model IEnumerable<SI2_TP.Models.Ocorrencia>
 
 @{
     ViewBag.Title = "Index";
@@ -35,7 +35,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.id)
+            @Html.ActionLink(item.id.ToString(), "Details","Ocorrencias", new{idOcorrencia= item.id} , null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.dataHoraEnt)
