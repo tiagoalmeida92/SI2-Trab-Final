@@ -1,0 +1,43 @@
+﻿@model SI2_TP.Models.Funcionario        
+@{
+    ViewBag.Title = "Funcionario";
+}
+
+<fieldset>
+    <legend>Funcionario @Model.Num</legend>
+    
+    <div class="display-label"><strong>Number</strong></div>
+    <div class="display-field">
+       @Html.DisplayFor(m=> m.Num)
+    </div>
+    
+    <div class="display-label"><strong>Name</strong></div>
+    <div class="display-field">
+            @Html.DisplayFor(m=> m.Name)
+    </div>
+    <div class="display-label"><strong>Estado</strong></div>
+    <div class="display-field">
+            @Html.DisplayFor(m=> m.Estado)
+    </div>
+    <div class="display-label"><strong>BornDate</strong></div>
+    <div class="display-field">
+        @Html.DisplayFor(m=> m.BornDate)
+    </div>
+    <div class="display-label"><strong>Admin</strong></div>
+    <div class="display-field">
+        @Html.DisplayFor(m=> m.Admin)
+    </div>
+    <div class="display-label"><strong>Coordenador</strong></div>
+    <div class="display-field">
+        @Html.DisplayFor(m=> m.Coordenador)
+    </div>
+
+</fieldset>
+
+<h2>Operações</h2>
+
+<ul>
+    <li>@Html.ActionLink("Ocorrencias", "Index", "Ocorrencias", new { idFuncio=@Model.Num }, null)</li>
+    <li></li>
+    <li></li>
+</ul>
