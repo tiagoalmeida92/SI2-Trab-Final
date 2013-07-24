@@ -1,0 +1,20 @@
+﻿@model int
+@{
+    ViewBag.Title = "AddArea";
+}
+
+<h2>Ocorrencia: @Html.DisplayFor(m=> m)</h2>
+
+<h3>AddArea</h3>
+
+@using(Html.BeginForm())
+{
+    <input type="hidden" name="idOcorr" value="@Model"/>
+    <p>Area de Intervencao</p>
+    <input type="text" name="areaIntervencao"/> 
+    <p>Descricao</p>
+    <textarea cols="40" rows="2" name="desc"></textarea>
+    <br/>
+    <input type="submit"/>
+}
+

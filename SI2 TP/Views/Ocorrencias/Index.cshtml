@@ -15,10 +15,16 @@
             Id
         </th>
         <th>
+            tipo
+        </th>
+        <th>
+            estado
+        </th>
+        <th>
             Data e hora de entrada
         </th>
         <th>
-            Data e hora da última alteração de estado
+            Data e hora da alteração
         </th>
         <th>
             Sector Instalacao
@@ -32,30 +38,44 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <strong>@Html.ActionLink(item.id.ToString(), "Details","Ocorrencias", new{id= item.id} , null)</strong>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dataHoraEnt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dataHoraAct)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.secInst)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.secPiso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.secZona)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <strong>
+                    @if(ViewBag.Admin){
+                        @Html.ActionLink(item.id.ToString(), "Details", "Ocorrencias", new {id = item.id}, null)
+                    }else{
+                        @Html.DisplayFor(m=> item.id)
+                    }
+                </strong>
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataHoraEnt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataHoraAct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.secInst)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.secPiso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.secZona)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {item.id})
+            </td>
+
+        </tr>
+    }
 
 </table>

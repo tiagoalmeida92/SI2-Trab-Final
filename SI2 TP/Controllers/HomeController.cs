@@ -28,5 +28,11 @@ namespace SI2_TP.Controllers
             return View(func);
         }
 
+        public ActionResult XSLT()
+        {
+
+            return Content();
+        }
+
     }
 }

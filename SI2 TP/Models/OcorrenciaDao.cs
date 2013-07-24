@@ -197,6 +197,7 @@ namespace SI2_TP.Models
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("AdminInsertTrabalho", con))
             {
+                con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idAInter", idAInterv);
                 cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
@@ -206,12 +207,58 @@ namespace SI2_TP.Models
         }
 
 
+        public IEnumerable<Trabalho> GetTrabalhos(int idOcorr)
+        {
+            var list = new List<Trabalho>();
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using(var con = new SqlConnection(conString))
+            using(var cmd = new SqlCommand("getTrabalhosDaOcorrencia",con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
+                var ds = new DataSet();
+                adapter.Fill(ds);
+                DataRowCollection drc = ds.Tables[0].Rows;
+                foreach (DataRow row in drc)
+                {
+                    list.Add(ConvertTrabalho(row));
+                }
+            }
+            return list;
+        }
+
+        private Trabalho ConvertTrabalho(DataRow row)
+        {
+            return new Trabalho
+                       {
+                           AreaIntervencao = Convert.ToInt32(row[1]),
+                           Desc = Convert.ToString(row[2]),
+                           Concluido = Convert.ToBoolean(row[3]),
+                           Coordenador = Convert.ToInt32(row[4])
+                       };
+        }
+
         //public string GetOfflineXML(int id)
         //{
         //    OcorrenciaDataSet.
         //}
 
 
-
+        public void InsertAfecto(int idOcorr, int areaInterv, int idFunc)
+        {
+             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("AdminInsertTrabalho", con))
+            {
+                con.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@areainterv", areaInterv);
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+                cmd.Parameters.AddWithValue("@idFunc", idFunc);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        
     }
 }

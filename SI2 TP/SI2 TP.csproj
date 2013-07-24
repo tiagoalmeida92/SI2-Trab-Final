@@ -114,6 +114,7 @@
       <DependentUpon>OcorrenciaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\Tipo.cs" />
+    <Compile Include="Models\Trabalho.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +165,8 @@
     <Content Include="Views\Ocorrencias\Create.cshtml" />
     <Content Include="Views\Ocorrencias\Edit.cshtml" />
     <Content Include="Views\Ocorrencias\NonConcluded.cshtml" />
+    <Content Include="Views\Ocorrencias\AddArea.cshtml" />
+    <Content Include="Views\Ocorrencias\ShowAvailableWorkers.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -42,23 +42,44 @@ namespace SI2_TP.Models
         }
 
         //mostra lista de todos os funcionarios habilitados a essa area de intervencao
-        public IEnumerable<Funcionario> GetAllFuncDisponiveis(int idAInterv)
+        //public IEnumerable<Funcionario> GetAllFuncDisponiveis(int idAInterv)
+        //{
+        //    var list = new LinkedList<Funcionario>();
+        //    var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+        //    using (var con = new SqlConnection(conString))
+        //    using (var cmd = new SqlCommand("GetOcurrenciasFromFunc", con))
+        //    {
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@areainterv", idAInterv);
+        //        var adapter = new SqlDataAdapter { SelectCommand = cmd };
+        //        var ds = new DataSet();
+        //        adapter.Fill(ds);
+        //        con.Close();
+        //        DataRowCollection drc = ds.Tables[0].Rows;
+        //        foreach (DataRow row in drc)
+        //        {
+        //            list.AddLast(ConvertFuncionario(row));
+        //        }
+        //    }
+        //    return list;
+        //}
+
+        public IEnumerable<Funcionario> GetAvailableWorkers(int areaInterv)
         {
-            var list = new LinkedList<Funcionario>();
+            var list = new List<Funcionario>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
-            using (var con = new SqlConnection(conString))
-            using (var cmd = new SqlCommand("GetOcurrenciasFromFunc", con))
+            using(var con = new SqlConnection(conString))
+            using(var cmd = new SqlCommand("getAllFuncDisponiveis",con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@areainterv", idAInterv);
-                var adapter = new SqlDataAdapter { SelectCommand = cmd };
+                cmd.Parameters.AddWithValue("@areainterv", areaInterv);
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
                 var ds = new DataSet();
                 adapter.Fill(ds);
-                con.Close();
                 DataRowCollection drc = ds.Tables[0].Rows;
                 foreach (DataRow row in drc)
                 {
-                    list.AddLast(ConvertFuncionario(row));
+                    list.Add(ConvertFuncionario2(row));
                 }
             }
             return list;
@@ -74,6 +95,17 @@ namespace SI2_TP.Models
                 Estado = Convert.ToString(row[3]),
                 Admin = Convert.ToBoolean(row[4]),
                 Coordenador = Convert.ToBoolean(row[5])
+            };
+        }
+
+        private static Funcionario ConvertFuncionario2(DataRow row)
+        {
+            return new Funcionario
+            {
+                Num = Convert.ToInt32(row[0]),
+                Name = Convert.ToString(row[1]),
+                Estado = Convert.ToString(row[2]),
+                BornDate = Convert.ToDateTime(row[3]),
             };
         }
     }

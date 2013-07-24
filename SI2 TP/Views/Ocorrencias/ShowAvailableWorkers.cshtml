@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SI2_TP.Models.Funcionario>
+
+@{
+    ViewBag.Title = "ShowAvailableWorkers";
+}
+
+<h2>Show Available Workers</h2>
+
+<table>
+    <tr>
+        <th>
+            Num
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            BornDate
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Coordenador
+        </th>
+        <th>
+            Admin
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BornDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coordenador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Admin)
+        </td>
+        <td>
+           @using(@Html.BeginForm("AddWorker","Ocorrencias",FormMethod.Post))
+           {
+               @Html.Hidden("idOcorr", (object)ViewBag.idOcorr)
+               @Html.Hidden("areaInterv", (object)ViewBag.areaInterv)
+               @Html.Hidden("idFunc", item.Num)
+               <input type="submit" value="Add"/>
+           }
+        </td>
+    </tr>
+}
+
+</table>

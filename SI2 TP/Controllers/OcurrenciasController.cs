@@ -8,7 +8,7 @@ namespace SI2_TP.Controllers
     {
       
         private readonly OcorrenciaDao _dao = new OcorrenciaDao();
-        private FuncionarioDao _funcDao = new FuncionarioDao();
+        private readonly FuncionarioDao _funcDao = new FuncionarioDao();
 
           //
         // GET: /Ocurrencias/
@@ -19,15 +19,21 @@ namespace SI2_TP.Controllers
             if(!idFuncio.HasValue) 
                 return RedirectToAction("Index", "Home");
             var func = _funcDao.GetById(idFuncio.Value);
+            ViewBag.Admin = func.Admin;
             if(func.Admin)
+            {
                 return View(_dao.GetAll());
+            }
             return View(_dao.GetAll(idFuncio.Value));
         }
 
         public ActionResult Details(int id)
         {
-            var ocorrencia = _dao.GetById(id);
-            return View(ocorrencia);
+            return View(new Ocorrencia
+                            {
+                                id = id,
+                                Trabalhos = _dao.GetTrabalhos(id)
+                            });
         }
 
         public ActionResult Create()
@@ -63,6 +69,33 @@ namespace SI2_TP.Controllers
             if(!date.HasValue) return View();
             var ocorrencias = _dao.GetAllNaoConcluidas(date.Value);
             return View("Index", ocorrencias);
+        }
+
+        public ActionResult AddArea(int idOcorr)
+        {
+            return View(idOcorr);
+
+        }
+
+        [HttpPost]
+        public ActionResult AddArea(int idOcorr, int areaIntervencao, string desc)
+        {
+            _dao.InsertTrabalhoOnAreaInterv(areaIntervencao, idOcorr, desc);
+            return RedirectToAction("AddArea", new {idOcorr});
+        }
+
+        public ActionResult ShowAvailableWorkers(int idOcorr, int areaInterv)
+        {
+            
+            return View(_funcDao.GetAvailableWorkers(areaInterv));
+
+        }
+
+        [HttpPost]
+        public ActionResult AddWorker(int idOcorr, int areaInterv, int idFunc)
+        {
+            _dao.InsertAfecto(idOcorr, areaInterv, idFunc);
+            return RedirectToAction("ShowAvailableWorkers");
         }
     }
 }
