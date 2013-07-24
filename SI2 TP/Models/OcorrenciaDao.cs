@@ -93,7 +93,6 @@ namespace SI2_TP.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", ocorr.id);
                 cmd.Parameters.AddWithValue("@tipo", ocorr.tipo);
-                cmd.Parameters.AddWithValue("@estado", ocorr.estado);
                 cmd.Parameters.AddWithValue("@secInst", ocorr.secInst);
                 cmd.Parameters.AddWithValue("@secPiso", ocorr.secPiso);
                 cmd.Parameters.AddWithValue("@secZona", ocorr.secZona);
@@ -101,7 +100,7 @@ namespace SI2_TP.Models
             }
         }
 
-        public void Cancelar(int idOcorrencia)
+        public void SetCancelar(int idOcorrencia)
         {
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
@@ -126,7 +125,45 @@ namespace SI2_TP.Models
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
+        public void SetConcluido(int idOcorr)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaConcluido", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SetRecusado(int idOcorr)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaRecusado", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SetEmProcessamento(int idOcorr)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaEmProcessamento", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         //d.  Permitir listar todas as ocorrências ainda não concluídas (que estejam em estado inicial ou em resolução) que 
         //tenham dado entrada depois de uma determinada data. 
 
@@ -150,7 +187,24 @@ namespace SI2_TP.Models
                 }
             }
             return list;
-        } 
+        }
+
+        // só o admin -> adicionar trabalho numa dada area de intervencao e ocorrencia
+
+        public void InsertTrabalhoOnAreaInterv(int idAInterv,int idOcorr,string desc)
+        {
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("AdminInsertTrabalho", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idAInter", idAInterv);
+                cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
+                cmd.Parameters.AddWithValue("@descTrabalho", desc);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
         //public string GetOfflineXML(int id)
         //{
