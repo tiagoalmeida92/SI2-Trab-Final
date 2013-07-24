@@ -12,7 +12,7 @@
 <table>
     <tr>
         <th>
-            Ver em modo desligado
+            Id
         </th>
         <th>
             Data e hora de entrada
@@ -53,7 +53,7 @@
             @Html.DisplayFor(modelItem => item.secZona)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { item.id })
         </td>
     </tr>
 }

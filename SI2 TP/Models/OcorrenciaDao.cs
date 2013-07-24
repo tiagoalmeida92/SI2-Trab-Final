@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace SI2_TP.Models
 {
@@ -40,7 +38,6 @@ namespace SI2_TP.Models
             using(var con = new SqlConnection(conString))
             using(var cmd = new SqlCommand("SELECT * FROM Ocorrencia",con))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
                 var adapter = new SqlDataAdapter {SelectCommand = cmd};
                 var ds = new DataSet();
                 adapter.Fill(ds);
@@ -89,7 +86,6 @@ namespace SI2_TP.Models
 
         public void Insert(Ocorrencia ocorr)
         {
-            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("reportaOcorrencia", con))
@@ -107,7 +103,6 @@ namespace SI2_TP.Models
 
         public void Cancelar(int idOcorrencia)
         {
-            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("CancelarOcurrencia", con))
@@ -121,7 +116,6 @@ namespace SI2_TP.Models
 
         public void SetEmResolucao(int idOcorr)
         {
-            var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("iniciaResolucaoOcorrencia", con))
@@ -157,6 +151,11 @@ namespace SI2_TP.Models
             }
             return list;
         } 
+
+        //public string GetOfflineXML(int id)
+        //{
+        //    OcorrenciaDataSet.
+        //}
 
 
 
