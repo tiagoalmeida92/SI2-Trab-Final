@@ -6,9 +6,9 @@
         <h1>Clientes</h1>
         <xsl:for-each select="Clientes/Empresa">
           <h2>Empresa</h2>
-          <h3><xsl:value-of select="NIPC"/></h3>
-          <h3><xsl:value-of select="design"/></h3>
-          <h3><xsl:value-of select="morada"/></h3>
+          <h3>NIPC: <xsl:value-of select="NIPC"/></h3>
+          <h3>Design: <xsl:value-of select="design"/></h3>
+          <h3>Morada: <xsl:value-of select="morada"/></h3>
           <table border="1">
             <tr bgcolor="#9acd32">
               <th>Codigo</th>

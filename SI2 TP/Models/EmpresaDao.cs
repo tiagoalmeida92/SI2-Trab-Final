@@ -23,7 +23,7 @@ namespace SI2_TP.Models
                 da.Fill(ds);
                 var s = ds.Tables[0].Rows[0][0].ToString();
 
-                return TransformXsl.ToHtml(s, "toTransForm.xsl");
+                return TransformXsl.ToHtml(s, "toTransform.xsl");
             }
         }
     }
