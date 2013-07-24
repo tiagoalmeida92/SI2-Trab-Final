@@ -11,19 +11,24 @@ namespace SI2_TP.Models
 {
     public class EmpresaDao
     {
-        public string GetHtmlTablesFromEmpresas()
+        public string GetHtmlTablesFromEmpresas(string path)
         {
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
-            using (var cmd = new SqlCommand("GetAllEmpresasInstadSp", con))
+            using (var cmd = new SqlCommand("GetAllEmpresasInsta", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var da = new SqlDataAdapter { SelectCommand = cmd };
-                var ds = new DataSet();
-                da.Fill(ds);
-                var s = ds.Tables[0].Rows[0][0].ToString();
 
-                return TransformXsl.ToHtml(s, "toTransform.xsl");
+                con.Open();
+                var xmlreader = cmd.ExecuteXmlReader();
+
+                //var da = new SqlDataAdapter { SelectCommand = cmd };
+                //var ds = new DataSet();
+                //da.Fill(ds);
+                //var header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+                //var s = ds.Tables[0].Rows[0][0].ToString();
+                
+                return TransformXsl.ToHtml(xmlreader, path);
             }
         }
     }

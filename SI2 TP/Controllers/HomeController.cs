@@ -10,6 +10,7 @@ namespace SI2_TP.Controllers
     public class HomeController : Controller
     {
         private FuncionarioDao _dao = new FuncionarioDao();
+        private EmpresaDao _empresaDao = new EmpresaDao();
 
         public ActionResult Index()
         {
@@ -28,10 +29,10 @@ namespace SI2_TP.Controllers
             return View(func);
         }
 
-        public ActionResult XSLT()
+        public ActionResult Xslt()
         {
 
-            return Content();
+            return Content(_empresaDao.GetHtmlTablesFromEmpresas(@"C:\Users\samsung\Documents\ISEL\1213v\SI2\Trabalho Prático\SI2 TP\SI2 TP\Content\toTransform.xsl"));
         }
 
     }

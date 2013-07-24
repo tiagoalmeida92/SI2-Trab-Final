@@ -8,12 +8,12 @@ namespace SI2_TP.Models.Transform
     public class TransformXsl
     {
         //CreateNavigator para navegar no documento
-        public static string ToHtml(string xmlString, string xslPath)
+        public static string ToHtml(XmlReader reader, string xslPath)
         {
             using (var sw = new StringWriter())
             {
                 var xml = new XmlDocument();
-                xml.LoadXml(xmlString);
+                xml.Load(reader);
 
                 var xsl2 = new XslCompiledTransform();
                 xsl2.Load(xslPath);
