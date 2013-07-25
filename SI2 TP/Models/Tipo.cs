@@ -7,7 +7,7 @@ namespace SI2_TP.Models
 {
     public enum Tipo
     {
-        Urgente,
+        Urgente = 1,
         Crítico,
         Trivial
     }

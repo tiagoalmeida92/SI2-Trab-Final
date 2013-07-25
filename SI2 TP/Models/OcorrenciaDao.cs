@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using SI2_TP.Models.OcorrenciaDataSetTableAdapters;
 
 namespace SI2_TP.Models
 {
     public class OcorrenciaDao
     {
-
         public IEnumerable<Ocorrencia> GetAll(int idFunc)
         {
             var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
-            using(var con = new SqlConnection(conString))
-            using(var cmd = new SqlCommand("GetOcurrenciasFromFunc",con))
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("GetOcurrenciasFromFunc", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idFunc", idFunc);
@@ -35,8 +35,8 @@ namespace SI2_TP.Models
         {
             var list = new LinkedList<Ocorrencia>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
-            using(var con = new SqlConnection(conString))
-            using(var cmd = new SqlCommand("SELECT * FROM Ocorrencia",con))
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("SELECT * FROM Ocorrencia", con))
             {
                 var adapter = new SqlDataAdapter {SelectCommand = cmd};
                 var ds = new DataSet();
@@ -90,6 +90,7 @@ namespace SI2_TP.Models
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("reportaOcorrencia", con))
             {
+                con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", ocorr.id);
                 cmd.Parameters.AddWithValue("@tipo", ocorr.tipo);
@@ -132,6 +133,7 @@ namespace SI2_TP.Models
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaConcluido", con))
             {
+                con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
 
@@ -145,6 +147,7 @@ namespace SI2_TP.Models
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaRecusado", con))
             {
+                con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
 
@@ -158,12 +161,14 @@ namespace SI2_TP.Models
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("UpdateEstadoOcorrenciaEmProcessamento", con))
             {
+                con.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
 
                 cmd.ExecuteNonQuery();
             }
         }
+
         //d.  Permitir listar todas as ocorrências ainda não concluídas (que estejam em estado inicial ou em resolução) que 
         //tenham dado entrada depois de uma determinada data. 
 
@@ -176,7 +181,7 @@ namespace SI2_TP.Models
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@data", data);
-                var adapter = new SqlDataAdapter { SelectCommand = cmd };
+                var adapter = new SqlDataAdapter {SelectCommand = cmd};
                 var ds = new DataSet();
                 adapter.Fill(ds);
                 con.Close();
@@ -191,7 +196,7 @@ namespace SI2_TP.Models
 
         // só o admin -> adicionar trabalho numa dada area de intervencao e ocorrencia
 
-        public void InsertTrabalhoOnAreaInterv(int idAInterv,int idOcorr,string desc)
+        public void InsertTrabalhoOnAreaInterv(int idAInterv, int idOcorr, string desc)
         {
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
@@ -211,8 +216,8 @@ namespace SI2_TP.Models
         {
             var list = new List<Trabalho>();
             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
-            using(var con = new SqlConnection(conString))
-            using(var cmd = new SqlCommand("getTrabalhosDaOcorrencia",con))
+            using (var con = new SqlConnection(conString))
+            using (var cmd = new SqlCommand("getTrabalhosDaOcorrencia", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idOcorr", idOcorr);
@@ -239,15 +244,10 @@ namespace SI2_TP.Models
                        };
         }
 
-        //public string GetOfflineXML(int id)
-        //{
-        //    OcorrenciaDataSet.
-        //}
-
 
         public void InsertAfecto(int idOcorr, int areaInterv, int idFunc)
         {
-             var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
+            var conString = ConfigurationManager.ConnectionStrings[Environment.MachineName].ConnectionString;
             using (var con = new SqlConnection(conString))
             using (var cmd = new SqlCommand("AdminInsertTrabalho", con))
             {
@@ -259,6 +259,13 @@ namespace SI2_TP.Models
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
+        public string GetByIdXml(int idOcorr)
+        {
+            var ds = new OcorrenciaDataSet();
+            var da = new OcorrenciaTableAdapter();
+            da.Fill(ds.Ocorrencia);
+            return ds.GetXml();
+        }
     }
 }

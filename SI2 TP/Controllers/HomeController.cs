@@ -9,8 +9,8 @@ namespace SI2_TP.Controllers
 {
     public class HomeController : Controller
     {
-        private FuncionarioDao _dao = new FuncionarioDao();
-        private EmpresaDao _empresaDao = new EmpresaDao();
+        private readonly FuncionarioDao _dao = new FuncionarioDao();
+        private readonly EmpresaDao _empresaDao = new EmpresaDao();
 
         public ActionResult Index()
         {
@@ -31,8 +31,8 @@ namespace SI2_TP.Controllers
 
         public ActionResult Xslt()
         {
-
-            return Content(_empresaDao.GetHtmlTablesFromEmpresas(@"C:\Users\samsung\Documents\ISEL\1213v\SI2\Trabalho Prático\SI2 TP\SI2 TP\Content\toTransform.xsl"));
+            var xslFilePath = Server.MapPath("~/Content/toTransform.xsl");
+            return Content(_empresaDao.GetHtmlTablesFromEmpresas(xslFilePath));
         }
 
     }

@@ -74,6 +74,9 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new {item.id})
             </td>
+            <td>
+                @Html.ActionLink("Ver modo desligado","ShowXML", new {idOcorr=item.id})
+            </td>
 
         </tr>
     }

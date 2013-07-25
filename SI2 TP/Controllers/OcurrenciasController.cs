@@ -47,6 +47,7 @@ namespace SI2_TP.Controllers
             ocorrencia.dataHoraAct = DateTime.Now;
             ocorrencia.dataHoraEnt = DateTime.Now;
             ocorrencia.estado = Estado.Inicial;
+            //ocorrencia.estado = (Estado)Enum.Parse(typeof (Tipo), Request["estado"]);
             _dao.Insert(ocorrencia);
             return RedirectToAction("Index","Home");
         }
@@ -96,6 +97,12 @@ namespace SI2_TP.Controllers
         {
             _dao.InsertAfecto(idOcorr, areaInterv, idFunc);
             return RedirectToAction("ShowAvailableWorkers");
+        }
+
+        public ActionResult ShowXml(int idocorr)
+        {
+            var xml = _dao.GetByIdXml(idocorr);
+            return Content(xml, "text/xml");
         }
     }
 }

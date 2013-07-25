@@ -7,7 +7,7 @@ namespace SI2_TP.Models
 {
     public enum Estado
     {
-        Inicial,
+        Inicial = 1,
         EmProcessamento,
         EmResolução,
         Recusado,
